@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavSathi - Your Digital Companion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ONBOARDING WELCOME SCREEN -->
+    <div id="onboarding-welcome" class="screen active">
+        <div class="onboarding-container">
+            <div class="onboarding-icon">👋</div>
+            <h1>Welcome to NavSathi</h1>
+            <p class="subtitle">Your Simple Companion for Staying Connected and Independent</p>
+            <p class="description">Let's set up your NavSathi in just a few steps</p>
+            <button onclick="app.nextScreen('onboarding-contacts')" class="btn-primary">Get Started</button>
+        </div>
+    </div>
+
+    <!-- ONBOARDING CONTACTS SCREEN -->
+    <div id="onboarding-contacts" class="screen">
+        <div class="onboarding-header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h2>Add Your Contacts</h2>
+        </div>
+        <div class="onboarding-content">
+            <div class="contact-input-group">
+                <label>Family Contact</label>
+                <input type="text" id="contact1-name" placeholder="Name" value="Priya (Daughter)">
+                <input type="text" id="contact1-phone" placeholder="Phone" value="+91-98765-43210">
+            </div>
+            <div class="contact-input-group">
+                <label>Doctor Contact</label>
+                <input type="text" id="contact2-name" placeholder="Name" value="Dr. Patel">
+                <input type="text" id="contact2-phone" placeholder="Phone" value="+91-97654-32109">
+            </div>
+            <div class="contact-input-group">
+                <label>Emergency Contact</label>
+                <input type="text" id="contact3-name" placeholder="Name" value="Emergency Services">
+                <input type="text" id="contact3-phone" placeholder="Phone" value="112">
+            </div>
+            <button onclick="app.saveContacts()" class="btn-primary">Continue</button>
+        </div>
+    </div>
+
+    <!-- ONBOARDING ACCESSIBILITY SCREEN -->
+    <div id="onboarding-accessibility" class="screen">
+        <div class="onboarding-header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h2>Customize for Comfort</h2>
+        </div>
+        <div class="onboarding-content">
+            <p>Set up your preferences</p>
+            <div class="setting-group">
+                <label for="text-size-slider">Text Size</label>
+                <input type="range" id="text-size-slider" class="slider" min="14" max="40" value="20" data-type="text-size">
+                <span id="text-size-value">20px</span>
+            </div>
+            <div class="setting-group">
+                <label for="contrast-toggle">High Contrast</label>
+                <input type="checkbox" id="contrast-toggle" data-type="contrast">
+            </div>
+            <div class="setting-group">
+                <label for="dark-mode-toggle">Dark Mode</label>
+                <input type="checkbox" id="dark-mode-toggle" data-type="dark-mode">
+            </div>
+            <button onclick="app.completeOnboarding()" class="btn-primary">Continue</button>
+        </div>
+    </div>
+
+    <!-- ONBOARDING SETTINGS SCREEN -->
+    <div id="onboarding-settings" class="screen">
+        <div class="onboarding-header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h2>Almost Done</h2>
+        </div>
+        <div class="onboarding-content">
+            <p>Review your settings</p>
+            <button onclick="app.nextScreen('onboarding-accessibility')" class="btn-primary">Continue</button>
+        </div>
+    </div>
+
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen">
+        <div class="header">
+            <button class="hamburger-btn" onclick="app.openMenu()">☰</button>
+            <h1>NavSathi</h1>
+            <button class="settings-btn" onclick="app.nextScreen('settings-screen')">⚙</button>
+        </div>
+        <div class="home-content">
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-label">Independence Days</span>
+                    <span class="stat-value" id="independence-days">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Streak</span>
+                    <span class="stat-value" id="streak-count">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Tasks Today</span>
+                    <span class="stat-value" id="tasks-today">0</span>
+                </div>
+            </div>
+            <div class="action-tiles">
+                <button class="action-tile" onclick="app.showConfirmation('health')">
+                    <div class="tile-icon">🏥</div>
+                    <div class="tile-label">Health</div>
+                </button>
+                <button class="action-tile" onclick="app.showConfirmation('family')">
+                    <div class="tile-icon">👨👩👧👦</div>
+                    <div class="tile-label">Family</div>
+                </button>
+                <button class="action-tile" onclick="app.showConfirmation('services')">
+                    <div class="tile-icon">🛒</div>
+                    <div class="tile-label">Services</div>
+                </button>
+                <button class="action-tile" onclick="app.showConfirmation('emergency')">
+                    <div class="tile-icon">🚨</div>
+                    <div class="tile-label">Emergency</div>
+                </button>
+                <button class="action-tile" onclick="app.showConfirmation('entertainment')">
+                    <div class="tile-icon">🎵</div>
+                    <div class="tile-label">Entertainment</div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION SCREEN -->
+    <div id="confirmation-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h2>Confirm Action</h2>
+            <div style="width: 48px;"></div>
+        </div>
+        <div class="confirmation-content">
+            <div id="confirmation-icon" style="font-size: 72px; margin-bottom: 24px;">🏥</div>
+            <h2 id="confirmation-question">Open Health Services?</h2>
+            <p id="confirmation-detail">View doctors, medicines, and appointments</p>
+            <label class="voice-checkbox">
+                <input type="checkbox" id="voice-input-confirm">
+                <span>🎤 I can say "Yes" aloud</span>
+            </label>
+            <button onclick="app.executeAction()" class="btn-primary">Yes, Confirm</button>
+            <button onclick="app.cancelAction()" class="btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+    <!-- HEALTH SCREEN -->
+    <div id="health-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Health Services</h1>
+        </div>
+        <div class="content">
+            <div class="service-content">
+                <h2>🏥 Health Services</h2>
+                <p class="service-intro">Manage your health information and appointments</p>
+
+                <div class="service-section">
+                    <h3>📋 Your Doctors</h3>
+                    <div class="service-item">
+                        <strong>Dr. Rajesh Patel</strong>
+                        <p>General Physician</p>
+                        <p>Phone: +91-97654-32109</p>
+                        <p>Clinic: Bangalore Medical Center</p>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>💊 Your Medicines</h3>
+                    <div class="service-item">
+                        <strong>Aspirin 100mg</strong>
+                        <p>Take 1 tablet daily with breakfast</p>
+                    </div>
+                    <div class="service-item">
+                        <strong>Multivitamin</strong>
+                        <p>Take 1 tablet daily with lunch</p>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>📅 Upcoming Appointments</h3>
+                    <div class="service-item">
+                        <strong>Dr. Patel - Checkup</strong>
+                        <p>November 10, 2025 at 3:00 PM</p>
+                        <p>Location: Bangalore Medical Center</p>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>🩺 Health Tips</h3>
+                    <ul>
+                        <li>Drink 8 glasses of water daily</li>
+                        <li>Take a 30-minute walk every day</li>
+                        <li>Get 7-8 hours of sleep</li>
+                        <li>Eat fruits and vegetables daily</li>
+                    </ul>
+                </div>
+            </div>
+            <button onclick="app.goBack()" class="btn-primary">Back</button>
+        </div>
+    </div>
+
+    <!-- FAMILY SCREEN -->
+    <div id="family-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Family</h1>
+        </div>
+        <div class="content">
+            <div class="service-content">
+                <h2>👨👩👧👦 Family Connections</h2>
+                <p class="service-intro">Stay connected with your loved ones</p>
+
+                <div class="service-section">
+                    <h3>📞 Quick Contacts</h3>
+                    <div class="service-item">
+                        <strong>Priya (Daughter)</strong>
+                        <p>Phone: +91-98765-43210</p>
+                        <button onclick="app.callContact('family')" class="btn-primary">Call Now</button>
+                    </div>
+                    <div class="service-item">
+                        <strong>Rahul (Son)</strong>
+                        <p>Phone: +91-97654-98765</p>
+                        <button onclick="alert('Calling Rahul...')" class="btn-primary">Call Now</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>💬 Recent Messages</h3>
+                    <div class="service-item">
+                        <strong>Priya</strong>
+                        <p>"Hi Mom! Hope you're doing well. Love you! 💕"</p>
+                        <p class="message-time">Today at 2:30 PM</p>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>📸 Shared Photos</h3>
+                    <p>View family photos and memories</p>
+                    <button onclick="alert('Photo gallery opening...')" class="btn-primary">View Photos</button>
+                </div>
+
+                <div class="service-section">
+                    <h3>🎂 Upcoming Events</h3>
+                    <div class="service-item">
+                        <strong>Priya's Birthday</strong>
+                        <p>November 25, 2025</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="app.goBack()" class="btn-primary">Back</button>
+        </div>
+    </div>
+
+    <!-- SERVICES SCREEN -->
+    <div id="services-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Services</h1>
+        </div>
+        <div class="content">
+            <div class="service-content">
+                <h2>🛒 Services & Shopping</h2>
+                <p class="service-intro">Easy access to daily essentials</p>
+
+                <div class="service-section">
+                    <h3>🛍️ Groceries</h3>
+                    <div class="service-item">
+                        <strong>Order from Local Stores</strong>
+                        <p>Milk, Vegetables, Fruits, Grains</p>
+                        <p>Free delivery for orders above 500 rupees</p>
+                        <button onclick="alert('Opening grocery store...')" class="btn-primary">Order Now</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>🚕 Transportation</h3>
+                    <div class="service-item">
+                        <strong>Cab Services</strong>
+                        <p>Safe and reliable transport to doctors, markets, temples</p>
+                        <button onclick="alert('Calling cab...')" class="btn-primary">Book Cab</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>🔧 Home Services</h3>
+                    <div class="service-item">
+                        <strong>Plumbing, Electrical, Repairs</strong>
+                        <p>Trusted technicians for home maintenance</p>
+                        <button onclick="alert('Booking service...')" class="btn-primary">Book Service</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>💐 Gift Delivery</h3>
+                    <div class="service-item">
+                        <strong>Send Flowers & Gifts</strong>
+                        <p>Send love to family and friends</p>
+                        <button onclick="alert('Browsing gifts...')" class="btn-primary">Browse Gifts</button>
+                    </div>
+                </div>
+            </div>
+            <button onclick="app.goBack()" class="btn-primary">Back</button>
+        </div>
+    </div>
+
+    <!-- EMERGENCY SCREEN -->
+    <div id="emergency-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Emergency</h1>
+        </div>
+        <div class="content">
+            <div class="service-content">
+                <h2>🚨 Emergency Contacts</h2>
+                <p class="service-intro">Important numbers to have at hand</p>
+
+                <div class="service-section">
+                    <h3>⚠️ Emergency Services</h3>
+                    <div class="service-item">
+                        <strong>Police</strong>
+                        <p>Phone: 100</p>
+                        <button onclick="alert('Calling Police...')" class="btn-primary">Call Police</button>
+                    </div>
+                    <div class="service-item">
+                        <strong>Ambulance</strong>
+                        <p>Phone: 102 or 108</p>
+                        <button onclick="alert('Calling Ambulance...')" class="btn-primary">Call Ambulance</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>👨‍⚕️ Medical Emergency</h3>
+                    <div class="service-item">
+                        <strong>Nearby Hospital</strong>
+                        <p>Apollo Hospital</p>
+                        <p>Phone: +91-80-42822222</p>
+                        <button onclick="alert('Calling Hospital...')" class="btn-primary">Call Hospital</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>👨‍👩‍👧 Family Emergency Contacts</h3>
+                    <div class="service-item">
+                        <strong>Priya (Daughter)</strong>
+                        <p>Phone: +91-98765-43210</p>
+                        <button onclick="app.callContact('family')" class="btn-primary">Call Family</button>
+                    </div>
+                </div>
+            </div>
+            <button onclick="app.goBack()" class="btn-primary">Back</button>
+        </div>
+    </div>
+
+    <!-- ENTERTAINMENT SCREEN -->
+    <div id="entertainment-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Entertainment</h1>
+        </div>
+        <div class="content">
+            <div class="service-content">
+                <h2>🎵 Entertainment & News</h2>
+                <p class="service-intro">News, music, and entertainment for relaxation</p>
+
+                <div class="service-section">
+                    <h3>📰 News</h3>
+                    <div class="service-item">
+                        <strong>Today's Top News</strong>
+                        <p>• Government announces new health scheme</p>
+                        <p>• Weather: Sunny, 28°C</p>
+                        <p>• Local news and updates</p>
+                        <button onclick="alert('Opening news...')" class="btn-primary">Read More</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>🎵 Music & Radio</h3>
+                    <div class="service-item">
+                        <strong>Classical Music</strong>
+                        <p>Relaxing instrumental music for meditation</p>
+                        <button onclick="alert('Playing music...')" class="btn-primary">Play Music</button>
+                    </div>
+                    <div class="service-item">
+                        <strong>Radio Channels</strong>
+                        <p>News Radio • Bhajans • Classical</p>
+                        <button onclick="alert('Opening radio...')" class="btn-primary">Listen</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>📺 Videos</h3>
+                    <div class="service-item">
+                        <strong>Yoga & Exercise</strong>
+                        <p>Gentle exercises for daily health</p>
+                        <button onclick="alert('Opening videos...')" class="btn-primary">Watch Videos</button>
+                    </div>
+                    <div class="service-item">
+                        <strong>Cooking Shows</strong>
+                        <p>Traditional recipes and cooking tips</p>
+                        <button onclick="alert('Opening recipes...')" class="btn-primary">Watch Recipes</button>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h3>🎮 Games</h3>
+                    <div class="service-item">
+                        <strong>Brain Games</strong>
+                        <p>Sudoku, Word Games, Memory Games</p>
+                        <button onclick="alert('Opening games...')" class="btn-primary">Play Games</button>
+                    </div>
+                </div>
+            </div>
+            <button onclick="app.goBack()" class="btn-primary">Back</button>
+        </div>
+    </div>
+
+    <!-- CONTACTS SCREEN -->
+    <div id="contacts-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Contacts</h1>
+        </div>
+        <div id="contact-list" class="content"></div>
+    </div>
+
+    <!-- ACHIEVEMENTS SCREEN -->
+    <div id="achievements-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Achievements</h1>
+        </div>
+        <div id="achievements-grid" class="content"></div>
+    </div>
+
+    <!-- SETTINGS SCREEN -->
+    <div id="settings-screen" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Settings</h1>
+        </div>
+        <div class="content">
+            <div class="setting-group">
+                <label for="text-size-slider-settings">Text Size</label>
+                <input type="range" id="text-size-slider-settings" class="slider" min="14" max="40" value="20" data-type="text-size">
+                <span id="text-size-value-settings">20px</span>
+            </div>
+            <div class="setting-group">
+                <label for="contrast-toggle-settings">High Contrast</label>
+                <input type="checkbox" id="contrast-toggle-settings" data-type="contrast">
+            </div>
+            <div class="setting-group">
+                <label for="dark-mode-toggle-settings">Dark Mode</label>
+                <input type="checkbox" id="dark-mode-toggle-settings" data-type="dark-mode">
+            </div>
+            <button onclick="app.showAchievements()" class="btn-primary">View Achievements</button>
+            <button onclick="app.goBack()" class="btn-secondary">Back</button>
+        </div>
+    </div>
+
+    <!-- FAMILY PORTAL SCREEN -->
+    <div id="family-portal" class="screen">
+        <div class="header">
+            <button class="back-btn" onclick="app.goBack()">←</button>
+            <h1>Family Portal</h1>
+        </div>
+        <div id="family-portal-content" class="content"></div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="success-title">Success!</h2>
+            <p id="success-message">Action completed</p>
+            <button onclick="app.closeSuccessModal()" class="btn-primary">OK</button>
+        </div>
+    </div>
+
+    <!-- PREMIUM MODAL -->
+    <div id="premium-modal" class="modal">
+        <div class="modal-content">
+            <h2>Get Premium</h2>
+            <p>Unlock all features</p>
+            <button onclick="app.upgradePremium()" class="btn-primary">Upgrade Now</button>
+            <button onclick="app.closePremiumModal()" class="btn-secondary">Maybe Later</button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
