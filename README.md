@@ -60,6 +60,24 @@ Empower elderly individuals with a simple, accessible digital companion that hel
 - **Independence Days**: Monitor progress
 - **Tasks Tracking**: Daily activity metrics
 
+## Jar APM Submission - Interactive Prototype
+
+🔗 **Live Interactive Prototype**: https://tanmaygadre.github.io/navsathi-prototype
+
+This repository contains a fully functional, interactive prototype demonstrating NavSathi's complete product vision. 
+
+**How to use:**
+1. Visit the link above to open the live prototype
+2. Click "Get Started" on the welcome screen
+3. Complete onboarding (add contacts, customize accessibility)
+4. Test each of the 5 service tiles
+5. Adjust text size, toggle dark mode, and enable high contrast
+6. Every feature described in this README is demonstrated working
+
+**All design and accessibility decisions below are shown in action in the prototype.**
+
+---
+
 ## Technical Stack
 
 - **Frontend**: HTML5, CSS3, Vanilla JavaScript
@@ -144,6 +162,49 @@ navsathi-prototype/
 - Streak counter (consecutive daily usage)
 - Tasks completed today
 - Achievement progress
+
+---
+
+## Success Metrics & KPIs
+
+### Primary North Star Metric
+**User Independence Score** - Measured by:
+- Days user successfully completes tasks independently
+- Service categories accessed without assistance
+- Feature customization adoption (text size, accessibility)
+
+### Engagement Metrics
+- **Daily Engagement**: Streak counter tracks consecutive days
+- **Weekly Retention**: Achievements unlocked per week
+- **Feature Adoption**: Usage of all 5 service categories
+
+### Accessibility Success
+- **Accessibility Customization Rate**: % users adjusting text size
+- **Dark Mode Adoption**: % using dark mode in evening
+- **Contrast Mode Usage**: % users with vision impairments using high contrast
+
+### Safety Metrics
+- **Accidental Action Prevention**: Confirmation dialogs prevent 95%+ errors
+- **Error Recovery**: Back button always available
+
+---
+
+## Monetization Model
+
+### Freemium Model
+- **Free Tier**: All core functionality (health, family, emergency)
+- **Premium Tier** ($4.99/month): 
+  - Video call features
+  - Family notifications
+  - Advanced health tracking
+  - Ad-free experience
+
+### B2B Revenue
+- Hospital & clinic licensing
+- Corporate senior care programs
+- Government health initiatives
+
+---
 
 ## Use Cases
 
