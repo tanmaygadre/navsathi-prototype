@@ -62,7 +62,7 @@ Empower elderly individuals with a simple, accessible digital companion that hel
 
 ## Jar APM Submission - Interactive Prototype
 
-🔗 **Live Interactive Prototype**: https://tanmaygadre.github.io/navsathi-prototype
+🔗 **Live Interactive Prototype**: [https://tanmaygadre.github.io/navsathi-prototype](https://github.com/tanmaygadre/navsathi-prototype)
 
 This repository contains a fully functional, interactive prototype demonstrating NavSathi's complete product vision. 
 
