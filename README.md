@@ -72,9 +72,9 @@ Empower elderly individuals with a simple, accessible digital companion that hel
 
 ```
 navsathi-prototype/
-├── index.html          # Main application structure (11.3 KB)
-├── app.js              # Logic & state management (12.6 KB)
-├── style.css           # Responsive styling (39.9 KB)
+├── index.html          # Main application structure (21.4 KB)
+├── app.js              # Logic & state management (13.2 KB)
+├── style.css           # Responsive styling (12.7 KB)
 └── README.md           # Documentation
 ```
 
